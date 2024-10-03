@@ -52,11 +52,31 @@ function App() {
 
   }
 
+  // the id is the _id of the todo document we want to delete
+  async function handleDelete(id) {
+
+    // make the request with the document id in the path (at the end)
+    await fetch(`http://localhost:8080/todos/${id}`, {
+      method: 'DELETE'
+    })
+
+    // make a copy of the state but also remove the document with the matching id
+    const newTodos = todos.filter(todo => todo._id !== id)
+
+    // update the state with a new array
+    setTodos(newTodos)
+  }
+
   return (
     <>
       <h1>Todos:</h1>
       <ul>
-        {todos.map(todo => <li key={todo._id}>{todo.text}</li>)}
+        {todos.map(todo => 
+          <li key={todo._id}>
+            {todo.text}
+            <button onClick={() => handleDelete(todo._id)}>X</button>
+          </li>
+        )}
       </ul>
       <form onSubmit={handleSubmit}>
         <input value={input} onChange={handleChange} />
