@@ -1,6 +1,8 @@
 import { useEffect, useState } from 'react'
 import './App.css'
 
+export const BASE_URL = 'http://localhost:8080'
+
 function App() {
 
   const [todos, setTodos] = useState([])
@@ -9,7 +11,7 @@ function App() {
   useEffect(() => {
     // make initial request to backend on first render
     async function test() {
-      const response = await fetch('http://localhost:8080/todos')
+      const response = await fetch(`${BASE_URL}/todos`)
       const data = await response.json()
       console.log(data)
       setTodos(data)
@@ -31,7 +33,7 @@ function App() {
     }
 
     // make the request
-    const response = await fetch('http://localhost:8080/todos', {
+    const response = await fetch(`${BASE_URL}/todos`, {
       method: 'POST',
       body: JSON.stringify(todo),
       headers: {
@@ -56,7 +58,7 @@ function App() {
   async function handleDelete(id) {
 
     // make the request with the document id in the path (at the end)
-    await fetch(`http://localhost:8080/todos/${id}`, {
+    await fetch(`${BASE_URL}/todos/${id}`, {
       method: 'DELETE'
     })
 
