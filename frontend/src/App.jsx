@@ -18,7 +18,10 @@ function App() {
 
   return (
     <>
-      Hello (from Client)!
+      <h1>Todos:</h1>
+      <ul>
+        {todos.map(todo => <li key={todo._id}>{todo.text}</li>)}
+      </ul>
     </>
   )
 }
