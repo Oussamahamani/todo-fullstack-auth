@@ -45,6 +45,9 @@ function App() {
     // keep the state in sync with our data
     setTodos([...todos, newTodo])
 
+    // reset the input to an empty string (easier to add todos that way)
+    setInput('')
+
     console.log(newTodo)
 
   }
