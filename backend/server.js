@@ -19,6 +19,9 @@ const app = express()
 // setup a cors middleware for our express app
 app.use(cors())
 
+// data from client stored in request.body and formatted as json
+app.use(express.json())
+
 // choosing a port 
 const PORT = 8080
 
@@ -27,7 +30,7 @@ app.get('/test', (req, res) => {
     res.json('Hello (from Server)!')
 })
 
-// a route that gets all todos and sends it to client
+// a route that gets all todos and sends it to client (READ)
 app.get('/todos', async (req, res) => {
     try {
         // use find method on the model to retrieve all documents from the todos collection
@@ -39,6 +42,19 @@ app.get('/todos', async (req, res) => {
         console.log(e)
         res.status(400).json(e)
     }
+})
+
+// a route that creates and adds a todo document to the database
+app.post('/todos', async (req, res) => {
+    try {
+        console.log(req.body)
+        const newTodo = await Todo.create(req.body)
+        res.status(201).json(newTodo)
+        console.log('POST /todos')
+    } catch(e) {
+        console.log(e)
+        res.status(400).json(e)
+    }  
 })
 
 // setup our server to listen on a specific port
