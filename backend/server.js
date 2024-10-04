@@ -13,6 +13,9 @@ import connectDB from './config.js'
 // bring in our todo model to interact with database
 import Todo from './models/todoModel.js'
 
+import admin from "firebase-admin"
+
+import key from "./firebase-admin"
 // create our express app
 const app = express()
 
@@ -22,6 +25,7 @@ app.use(cors())
 // data from client stored in request.body and formatted as json
 app.use(express.json())
 
+admin.initializeApp(key)
 // choosing a port 
 const PORT = 8080
 
@@ -32,6 +36,8 @@ app.get('/test', (req, res) => {
 
 // a route that gets all todos and sends it to client (READ)
 app.get('/todos', async (req, res) => {
+    let token = req.headers.authorization.split(" ")[1]
+    console.log(token)
     try {
         // use find method on the model to retrieve all documents from the todos collection
         const todos = await Todo.find({userId:"Zwd5kxjPlvViXpXEcZHaEZenz4d2"})
