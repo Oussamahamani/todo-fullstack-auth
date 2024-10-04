@@ -71,6 +71,20 @@ app.delete('/todos/:id', async (req, res) => {
     }
 })
 
+// a route for updating a todo document from the database
+app.put('/todos/:id', async (req, res) => {
+    try {
+        // use the model to find the document and replace it with the updated one (req.body)
+        // we can add { new: true } to the options object to get the updated version of the document in our response
+        const updatedTodo = await Todo.findByIdAndUpdate(req.params.id, req.body, { new: true })
+        console.log('PUT /todos/:id')
+        res.status(200).json(updatedTodo)
+    } catch(e) {
+        console.log(e)
+        res.status(400).json(e)
+    }
+})
+
 // setup our server to listen on a specific port
 app.listen(PORT, () => {
     console.log('Listening on port: ' + PORT)
