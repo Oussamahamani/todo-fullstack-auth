@@ -20,7 +20,7 @@ function App() {
   useEffect(()=>{
     //log in user automaticly if they are already logged from previous time
    let unsub = auth.onAuthStateChanged((user)=>{
-      console.log("authenetication",user)
+      console.log("authenetication",user.uid)
       setUserAuth(user)
       setIsAuthReady(true)
       unsub()
@@ -36,7 +36,7 @@ function App() {
 
       <Routes>
 
-        <Route path="/" element={userAuth?<ToDo/>:<Navigate replace={true} to="/signup"/>} />
+        <Route path="/" element={userAuth?<ToDo userAuth={userAuth}/>:<Navigate replace={true} to="/signup"/>} />
         <Route path="/signup" element = {userAuth?<Navigate replace={true} to="/"/>:<SignUp setUserAuth={setUserAuth}/>}/>
         <Route path="/signin" element = {userAuth?<Navigate replace={true} to="/"/>:<SignIN setUserAuth={setUserAuth}/>}/>
       </Routes>

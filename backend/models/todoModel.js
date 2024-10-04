@@ -6,7 +6,11 @@ const todoSchema = mongoose.Schema({
     // field must be a string (data validation)
     text: { type: String },
     // field must be a boolean 
-    completed: { type: Boolean, default: false }
+    completed: { type: Boolean, default: false },
+
+    userId:{type:String},
+
+    email:{type:String}
 })
 
 // create our model with the schema (first parameter is collection name)

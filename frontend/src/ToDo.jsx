@@ -3,7 +3,7 @@ import './App.css'
 
 export const BASE_URL = import.meta.env.VITE_BASE_URL
 
-function ToDo() {
+function ToDo({userAuth}) {
 
   const [todos, setTodos] = useState([])
   const [input, setInput] = useState('')
@@ -29,7 +29,9 @@ function ToDo() {
 
     // format our data on the frontend to match the schema
     const todo = {
-      text: input
+      text: input,
+      userId:userAuth.uid,
+      email:userAuth.email
     }
 
     // make the request

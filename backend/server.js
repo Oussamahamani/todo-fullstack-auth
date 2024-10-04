@@ -34,7 +34,7 @@ app.get('/test', (req, res) => {
 app.get('/todos', async (req, res) => {
     try {
         // use find method on the model to retrieve all documents from the todos collection
-        const todos = await Todo.find({})
+        const todos = await Todo.find({userId:"Zwd5kxjPlvViXpXEcZHaEZenz4d2"})
         console.log('GET /todos')
         // send those documents to the client
         res.status(200).json(todos)
